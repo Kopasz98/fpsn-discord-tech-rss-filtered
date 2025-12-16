@@ -139,9 +139,14 @@ for feed_url in RSS_FEEDS:
             continue
 
         new_posts.append({
-            "title": entry.title,
-            "link": entry.link
-        })
+           title = entry.get("title", "").strip()
+link  = entry.get("link", "").strip()
+
+# Ha nincs cím vagy link, lépjünk tovább (ne dőljön el a script)
+if not title or not link:
+    continue
+
+new_posts.append({"title": title, "link": link})
 
         posted.add(eid)
 
