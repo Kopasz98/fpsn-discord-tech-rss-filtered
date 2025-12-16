@@ -81,8 +81,8 @@ INCLUDE_KEYWORDS = [k.lower() for k in [
   "Legion","iOS","Iphone","Ipad",
   "Apple","watchOS","Steam","Logitech",
   "Nintendo","Switch","Sony","Playstation",
-  "PS5","WWDC","Corsair","Razer","Windows","VR",
-  "AR","Asus","Huawei","Nvidia","AMD","LG",
+  "PS5","WWDC","Corsair","Razer","Windows",
+  "Asus","Huawei","Nvidia","AMD",
 ]]
 
 EXCLUDE_KEYWORDS = [k.lower() for k in [
@@ -90,7 +90,7 @@ EXCLUDE_KEYWORDS = [k.lower() for k in [
     "giveaway", "free skins",
     "sale", "discount",
     "top 10", "best of",
-    "opinion", "editorial"
+    "opinion", "editorial","walmart","deals",
 ]]
 
 POSTED_FILE = "posted.json"
@@ -117,11 +117,13 @@ def entry_id(entry):
     return hashlib.sha256(base.encode("utf-8")).hexdigest()
 
 
+posted = set()
 if os.path.exists(POSTED_FILE):
-    with open(POSTED_FILE, "r") as f:
-        posted = set(json.load(f))
-else:
-    posted = set()
+    try:
+        with open(POSTED_FILE, "r", encoding="utf-8") as f:
+            posted = set(json.load(f))
+    except Exception:
+        posted = set()
 
 new_posts = []
 
