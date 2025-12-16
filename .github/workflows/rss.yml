@@ -5,21 +5,45 @@ on:
     - cron: "*/30 * * * *"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   rss:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.10"
 
       - name: Install dependencies
         run: pip install feedparser requests
 
-      - name: Run RSS script
+      - name: Run RSS to Discord
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         run: python rss_to_discord.py
+
+      - name: Commit posted cache
+        run: |
+          if [ -f posted.json ]; then
+            git config user.name "github-actions"
+            git config user.email "github-actions@github.com"
+            git add posted.json
+            git commit -m "Update posted cache" || echo "No changes to commit"
+          else
+            echo "posted.json not found, nothing to commit"
+          fi
+
+      - name: Push changes
+        run: |
+          git pull --rebase
+          git push || echo "Push failed (branch protection or permissions)."
