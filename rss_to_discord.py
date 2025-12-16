@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import feedparser
 import requests
 import json
