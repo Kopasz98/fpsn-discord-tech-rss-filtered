@@ -75,7 +75,7 @@ RSS_FEEDS = [
 
 ]
 
-INCLUDE_KEYWORDS = [
+INCLUDE_KEYWORDS = [k.lower() for k in [
   "Samsung","OpenAI","ChatGPT",
   "ROG","Ally","Leica","Lenovo",
   "Legion","iOS","Iphone","Ipad",
@@ -83,15 +83,15 @@ INCLUDE_KEYWORDS = [
   "Nintendo","Switch","Sony","Playstation",
   "PS5","WWDC","Corsair","Razer","Windows","VR",
   "AR","Asus","Huawei","Nvidia","AMD","LG",
-]
+]]
 
-EXCLUDE_KEYWORDS = [
+EXCLUDE_KEYWORDS = [k.lower() for k in [
     "rumor", "leak", "unconfirmed",
     "giveaway", "free skins",
     "sale", "discount",
     "top 10", "best of",
     "opinion", "editorial"
-]
+]]
 
 POSTED_FILE = "posted.json"
 
