@@ -76,8 +76,7 @@ RSS_FEEDS = [
 ]
 
 INCLUDE_KEYWORDS = [k.lower() for k in [
-  "Samsung","OpenAI","ChatGPT",
-  "ROG","Ally","Leica","Lenovo",
+  "Samsung","ROG","Ally","Leica","Lenovo",
   "Legion","iOS","Iphone","Ipad",
   "Apple","watchOS","Steam","Logitech",
   "Nintendo","Switch","Sony","Playstation",
